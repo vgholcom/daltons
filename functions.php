@@ -189,7 +189,27 @@ function daltons_about_slide_meta() {
 }
 
 function daltons_about_hours_meta() {
-
+    global $post;
+    $days = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");?>
+    <table>
+        <tbody><?php
+            foreach($days as $day) :
+                $ohour = get_post_meta($post->ID, 'daltons_hours_o_'.$day, true);
+                $chour = get_post_meta($post->ID, 'daltons_hours_c_'.$day, true); ?>
+                <tr>
+                    <td>
+                        <strong><?php echo $day;?></strong>
+                    </td>
+                    <td>
+                        <input id="daltons_hours_o_<?php echo $day; ?>" name="daltons_hours_o_<?php echo $day; ?>" style="width:75px;" value="<?php if(isset($ohour)){ echo $ohour; } ?>" placeholder="00:00" />
+                    </td>
+                    <td>
+                        <input id="daltons_hours_c_<?php echo $day; ?>" name="daltons_hours_c_<?php echo $day; ?>" style="width:75px;" value="<?php if(isset($chour)){ echo $chour; }  ?>" placeholder="00:00" />
+                    </td>
+                    </tr><?php
+            endforeach;?>
+        <tbody>
+    </table><?php
 }
 
 function daltons_about_contact_meta() {
@@ -215,5 +235,15 @@ function daltons_metabox_save( $post_id ) {
         elseif ( empty($new) && $old )
             delete_post_meta( $post_id, 'daltons_about_slides', $old );
     }
+    $days = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+    foreach($days as $day) :
+        if (isset($_POST['daltons_hours_o_'.$day])) :
+            update_post_meta( $post_id, 'daltons_hours_o_'.$day, $_POST['daltons_hours_o_'.$day] );
+        endif;
+        if (isset($_POST['daltons_hours_c_'.$day])) :
+            update_post_meta( $post_id, 'daltons_hours_c_'.$day, $_POST['daltons_hours_c_'.$day] );
+        endif;
+    endforeach;
+
 }
 add_action( 'save_post', 'daltons_metabox_save' );
