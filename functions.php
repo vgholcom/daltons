@@ -6,6 +6,9 @@
  * @subpackage daltons
  */
 
+include 'admin/events.php';
+include 'admin/inventory.php';
+
 /**
  * Enqueue styles
  */
@@ -75,52 +78,52 @@ function daltons_theme_options() {
         </div>
     </div>
     <script type="text/javascript">
-    jQuery(function($) {
-        //handle image edit
-        var uploadID = '';
-        $(document).on("click", "#daltons-logo-change", function() { // button
-            uploadID = "logo";
-            formfield = 'add image';
-            tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
-            return false;
-        });
+        jQuery(function($) {
+            //handle image edit
+            var uploadID = '';
+            $(document).on("click", "#daltons-logo-change", function() { // button
+                uploadID = "logo";
+                formfield = 'add image';
+                tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
+                return false;
+            });
 
-        window.send_to_editor = function(html) {
-            var imgurl = $('img',html).attr('src');
-            var imgid = $('img', html).attr('class');
-            imgid = imgid.replace(/(.*?)wp-image-/, '');
-            tb_remove();
-            $("#daltons-"+uploadID+"-src").attr( 'src', imgurl ); // image preview
-            $("#daltons-"+uploadID+"-id").val(imgid); // hidden id 
-        }
-        $(document).mouseup(function(e) {
-            if ( $("#TP_iframeContent").has(e.target).length === 0 ) {
+            window.send_to_editor = function(html) {
+                var imgurl = $('img',html).attr('src');
+                var imgid = $('img', html).attr('class');
+                imgid = imgid.replace(/(.*?)wp-image-/, '');
                 tb_remove();
+                $("#daltons-"+uploadID+"-src").attr( 'src', imgurl ); // image preview
+                $("#daltons-"+uploadID+"-id").val(imgid); // hidden id 
             }
-        });
-        $(document).on("click", "#daltons-logo-remove", function() { // button
-            $("#daltons-logo-src").attr('src', '');
-            $("#daltons-logo-id").val('');
-        });
-        
-        //handle save
-        $("#save-changes-btn").click(function() {
-            $("#save-changes-btn").val( 'Saving...' );
-            //send ajax request to update
-            var data = { 
-                action: 'sdn_theme_options_ajax_action',
-                sdn_theme_options: { 
-                    branding: { src: $("#daltons-logo-src").attr('src'), id: $("#daltons-logo-id").val() },
+            $(document).mouseup(function(e) {
+                if ( $("#TP_iframeContent").has(e.target).length === 0 ) {
+                    tb_remove();
                 }
-                
-            };
-            //console.log(data);
-            $.post(ajaxurl, data, function( msg ) 
-            {
-                $("#save-changes-btn").val( msg );
-            });//enf of .post()
+            });
+            $(document).on("click", "#daltons-logo-remove", function() { // button
+                $("#daltons-logo-src").attr('src', '');
+                $("#daltons-logo-id").val('');
+            });
+            
+            //handle save
+            $("#save-changes-btn").click(function() {
+                $("#save-changes-btn").val( 'Saving...' );
+                //send ajax request to update
+                var data = { 
+                    action: 'sdn_theme_options_ajax_action',
+                    sdn_theme_options: { 
+                        branding: { src: $("#daltons-logo-src").attr('src'), id: $("#daltons-logo-id").val() },
+                    }
+                    
+                };
+                //console.log(data);
+                $.post(ajaxurl, data, function( msg ) 
+                {
+                    $("#save-changes-btn").val( msg );
+                });//enf of .post()
+            });
         });
-    });
     </script>
 <?php }
 
@@ -135,13 +138,15 @@ add_action( 'wp_ajax_daltons_theme_options_ajax_action', 'daltons_theme_options_
 
 
 function daltons_metabox() {    
-    $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-    $template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
-    if ($template_file == 'about.php') {
+    //$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+    //$template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
+    //if ($template_file == 'about.php') {
         add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
+        add_meta_box('daltons-inventory-gallery-meta', 'Gallery', 'daltons_inventory_gallery_meta', 'inventory', 'normal', 'high');
+        add_meta_box('daltons-inventory-status-meta', 'Status', 'daltons_status_meta', 'inventory', 'normal', 'high');
         add_meta_box('daltons-about-hours-meta', 'Hours', 'daltons_about_hours_meta', 'page', 'side', 'low');
         add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'side', 'low');
-    }                          
+    //}                          
 }
 add_action( 'add_meta_boxes', 'daltons_metabox' );
 
@@ -206,16 +211,99 @@ function daltons_about_hours_meta() {
                     <td>
                         <input id="daltons_hours_c_<?php echo $day; ?>" name="daltons_hours_c_<?php echo $day; ?>" style="width:75px;" value="<?php if(isset($chour)){ echo $chour; }  ?>" placeholder="00:00" />
                     </td>
-                    </tr><?php
+                </tr><?php
             endforeach;?>
         <tbody>
     </table><?php
 }
 
 function daltons_about_contact_meta() {
-
+    global $post;?>
+    <table>
+        <tbody><?php
+            $phone = get_post_meta($post->ID, 'daltons_phone', true);
+            $fax = get_post_meta($post->ID, 'daltons_fax', true);
+            $other = get_post_meta($post->ID, 'daltons_other', true); ?>
+            <tr>
+                <td>
+                    <strong>Phone</strong>
+                </td>
+                <td>
+                    <input id="daltons_phone" name="daltons_phone" style="width:100%;" value="<?php if(isset($phone)){ echo $phone; } ?>" placeholder="(000)000-0000" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Fax</strong>
+                </td>
+                <td>
+                    <input id="daltons_fax" name="daltons_fax" style="width:100%;" value="<?php if(isset($fax)){ echo $fax; } ?>" placeholder="(000)000-0000" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Other</strong>
+                </td>
+                <td>
+                    <input id="daltons_other" name="daltons_other" style="width:100%;" value="<?php if(isset($other)){ echo $other; } ?>" placeholder=" " />
+                </td>
+            </tr>
+        <tbody>
+    </table><?php
 }
 
+function daltons_inventory_gallery_meta() {
+    global $post;
+    $gallery = get_post_meta($post->ID, 'daltons_inventory_gallery', true); ?>
+    <table id="inventory-gallery-table">
+        <tbody><?php
+            if ( $gallery ) :
+                foreach ( $gallery as $image ) {
+                    $img_src = wp_get_attachment_image_src( $image['gal'] ); ?>
+                    <tr class="inventory-slide">
+                        <td>
+                            <a class="button remove-slide" href="#">Remove Image</a><a class="sort"><i class="fa fa-arrows"></i></a>
+                            <input type="hidden" name="gal[]" value="<?php if($image['gal'] != '') echo esc_attr( $image['gal'] ); ?>" />
+                            <input type="button" id="gal[]" class="upload-image-button button btn" value="Upload Image" />
+                            <div class="preview-container"><img id="gallery_image-preview" src="<?php if($image['gal'] != '') echo $img_src[0]; ?>"/></div>
+                        </td>
+                    </tr><?php
+                }
+            else : ?>
+                <tr class="inventory-slide">
+                    <td>
+                        <a class="button remove-slide" href="#">Remove Image</a><a class="sort"><i class="fa fa-arrows"></i></a>
+                        <input type="hidden" name="gal[]" placeholder="Image URL" />
+                        <input type="button" id="gal[]" class="upload-image-button button btn" value="Upload Image" />
+                        <div class="preview-container"><img id="gallery_image-preview" src="" /></div>
+                    </td>
+                </tr><?php 
+            endif; ?>
+            <tr class="empty-row screen-reader-text inventory-slide">
+                <td>
+                    <a class="button remove-slide" href="#">Remove Image</a><a class="sort"><i class="fa fa-arrows"></i></a>
+                    <input type="hidden" name="gal[]" placeholder="Image URL"/>
+                    <input type="button" id="gal[]" class="upload-image-button button btn" value="Upload Image" />
+                    <div class="preview-container"><img id="gallery_image-preview" src="" /></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <a id="add-slide" class="button" href="#">Add Slide</a>
+        <input type="submit" class="metabox_submit button" value="Save" />
+    </p><?php
+}
+
+function daltons_status_meta() {
+    global $post;
+    $status = get_post_meta($post->ID, 'daltons_status', TRUE);
+    if (!$status) $status = 'sale';    
+    ?>
+    <input type="radio" name="daltons_status" value="sold" <?php if ($status == 'sold') echo "checked=1";?>> Sold.<br/>
+    <input type="radio" name="daltons_status" value="sale" <?php if ($status == 'sale') echo "checked=1";?>> For Sale.<br/>
+    <?php
+}
 /**
  * Save Meta Boxes
  */
@@ -244,6 +332,32 @@ function daltons_metabox_save( $post_id ) {
             update_post_meta( $post_id, 'daltons_hours_c_'.$day, $_POST['daltons_hours_c_'.$day] );
         endif;
     endforeach;
-
+    if (isset($_POST['daltons_phone'])) :
+        update_post_meta( $post_id, 'daltons_phone', $_POST['daltons_phone'] );
+    endif;
+    if (isset($_POST['daltons_fax'])) :
+        update_post_meta( $post_id, 'daltons_fax', $_POST['daltons_fax'] );
+    endif;
+    if (isset($_POST['daltons_other'])) :
+        update_post_meta( $post_id, 'daltons_other', $_POST['daltons_other'] );
+    endif;
+    $oldg = get_post_meta($post_id, 'daltons_inventory_gallery', true);
+    $newg = array();
+    $gals = isset($_POST['gal']) ? $_POST['gal'] : false;
+    $count = count( $gals );
+    if ($gals) {
+        for ( $i = 0; $i < $count; $i++ ) {
+            if ( $gals[$i] != '' ) :
+                $newg[$i]['gal'] = stripslashes( $gals[$i] ); 
+            endif;
+        }
+        if ( !empty( $newg ) && $newg != $oldg )
+            update_post_meta( $post_id, 'daltons_inventory_gallery', $newg );
+        elseif ( empty($new) && $old )
+            delete_post_meta( $post_id, 'daltons_inventory_gallery', $oldg );
+    }
+    if( isset($_POST['daltons_status']) ) {
+        update_post_meta($post_id, 'daltons_status', esc_attr($_POST['daltons_status']) );
+    }
 }
 add_action( 'save_post', 'daltons_metabox_save' );

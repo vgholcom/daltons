@@ -24,6 +24,12 @@ jQuery(function($){
         row.insertBefore('#about-slide-table tbody>tr:last');
         return false;
     });
+    $('#daltons-inventory-gallery-meta #add-slide').on('click', function() {
+        var row = $('.empty-row.screen-reader-text').clone(true);
+        row.removeClass('empty-row screen-reader-text');
+        row.insertBefore('#inventory-gallery-table tbody>tr:last');
+        return false;
+    });
     $('.remove-slide').on('click', function() {
         $(this).parents('tr').remove();
         return false;
