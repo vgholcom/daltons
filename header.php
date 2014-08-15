@@ -27,7 +27,7 @@
         wp_head(); ?>
     </head>
     <body <?php body_class(); ?>>
-        <nav id="site-navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <nav id="site-navigation" class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">  
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
@@ -66,3 +66,4 @@
 
             </div>
         </nav><!-- #site-navigation -->
+        <div id="main-content" class="container">

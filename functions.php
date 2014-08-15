@@ -136,17 +136,44 @@ function daltons_theme_options_ajax_callback() {
 }
 add_action( 'wp_ajax_daltons_theme_options_ajax_action', 'daltons_theme_options_ajax_callback' );
 
+function is_edit_page($new_edit = null){
+    global $pagenow;
+    //make sure we are on the backend
+    if (!is_admin()) return false;
+
+    if($new_edit == "edit")
+        return in_array( $pagenow, array( 'post.php',  ) );
+    elseif($new_edit == "new") //check for new post page
+        return in_array( $pagenow, array( 'post-new.php' ) );
+    else //check for either new or edit
+        return in_array( $pagenow, array( 'post.php', 'post-new.php' ) );
+}
 
 function daltons_metabox() {    
-    //$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-    //$template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
-    //if ($template_file == 'about.php') {
-        add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
-        add_meta_box('daltons-inventory-gallery-meta', 'Gallery', 'daltons_inventory_gallery_meta', 'inventory', 'normal', 'high');
-        add_meta_box('daltons-inventory-status-meta', 'Status', 'daltons_status_meta', 'inventory', 'normal', 'high');
+    global $post; 
+    $type = get_post_type( $post );
+    if (is_edit_page('new')){
         add_meta_box('daltons-about-hours-meta', 'Hours', 'daltons_about_hours_meta', 'page', 'side', 'low');
         add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'side', 'low');
-    //}                          
+        add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
+        add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
+        add_meta_box('daltons-page-post-category-meta', 'Post Category', 'daltons_page_post_category_meta', 'page', 'side', 'low');
+    } else {
+        if ($type == 'page') :
+            $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+            $template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
+            if ($template_file == 'about.php') {
+                add_meta_box('daltons-about-hours-meta', 'Hours', 'daltons_about_hours_meta', 'page', 'side', 'low');
+                add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'side', 'low');
+                add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
+            } elseif ($template_file == 'home-page.php') {
+                add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
+                add_meta_box('daltons-page-post-category-meta', 'Post Category', 'daltons_page_post_category_meta', 'page', 'side', 'low');
+            }
+        endif;  
+    }
+    add_meta_box('daltons-inventory-gallery-meta', 'Gallery', 'daltons_inventory_gallery_meta', 'inventory', 'normal', 'high');
+    add_meta_box('daltons-inventory-status-meta', 'Status', 'daltons_status_meta', 'inventory', 'normal', 'high');
 }
 add_action( 'add_meta_boxes', 'daltons_metabox' );
 
@@ -298,12 +325,35 @@ function daltons_inventory_gallery_meta() {
 function daltons_status_meta() {
     global $post;
     $status = get_post_meta($post->ID, 'daltons_status', TRUE);
-    if (!$status) $status = 'sale';    
-    ?>
+    if (!$status) $status = 'sale';  ?>
     <input type="radio" name="daltons_status" value="sold" <?php if ($status == 'sold') echo "checked=1";?>> Sold.<br/>
     <input type="radio" name="daltons_status" value="sale" <?php if ($status == 'sale') echo "checked=1";?>> For Sale.<br/>
     <?php
 }
+
+
+function daltons_page_post_category_meta ( $post ) { ?>
+    <label for="daltons_post_category">Select which posts by category to feed on the front page: </label>
+    <?php wp_dropdown_categories( array(
+        'selected'=> get_post_meta($post->ID, 'daltons_post_category', true),
+        'name' => 'daltons_post_category',
+        'show_option_none' => 'None',
+        'class' => 'postform daltons-dropdown',
+        'hide_empty' => false
+    ) ); ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            $(".daltons-dropdown").change(function(){
+                if( $(this).val()!=-1 ) {
+                    $(this).siblings().each(function(){
+                        $(this).val(-1);
+                    });
+                }
+            });
+        });
+    </script>
+<?php }
+
 /**
  * Save Meta Boxes
  */
@@ -358,6 +408,9 @@ function daltons_metabox_save( $post_id ) {
     }
     if( isset($_POST['daltons_status']) ) {
         update_post_meta($post_id, 'daltons_status', esc_attr($_POST['daltons_status']) );
+    }
+    if( isset($_POST['daltons_post_category']) ) {
+        update_post_meta($post_id, 'daltons_post_category', esc_attr($_POST['daltons_post_category']) );
     }
 }
 add_action( 'save_post', 'daltons_metabox_save' );
