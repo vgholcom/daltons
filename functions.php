@@ -25,7 +25,8 @@ add_action( 'wp_enqueue_scripts', 'daltons_styles' );
  */
 function daltons_scripts() {
     wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '3.1.1' );
+    wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '3.1.1' );    
+    wp_enqueue_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false', array('jquery'), '3.1.1' );
     wp_enqueue_script( 'main-js', get_template_directory_uri() . '/js/main.js', array('jquery','bootstrap-js') );
 }
 add_action( 'wp_enqueue_scripts', 'daltons_scripts' );
