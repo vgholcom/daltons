@@ -114,7 +114,6 @@ body {
 }
 .navbar-form {
   padding-top: 16px;
-  padding-right: 0px;
 }
 .navbar-form button {
   border: none;
@@ -147,6 +146,19 @@ body {
 }
 #about h1, h2 {
   text-align: center;
+}
+
+/* home.php */
+.blog article {
+  background-color: rgb(178,216,172);
+  border: 5px solid rgb(186,154,115);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.blog article:first-of-type {
+  margin-top: 0;
 }
 
 /* footer */
