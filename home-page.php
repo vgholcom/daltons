@@ -5,7 +5,7 @@
  * @subpackage daltons
  */
 get_header(); ?>
-<section id="carousel" class="carousel slide" data-ride="carousel"><?php
+<section id="carousel" class="carousel slide row" data-ride="carousel"><?php
 	$items = get_post_meta($post->ID, 'daltons_about_slides', true);
 	$num = count($items); $first = true; ?>
 	<ol class="carousel-indicators"><?php
@@ -30,22 +30,21 @@ get_header(); ?>
 	<a class="left carousel-control" href="#carousel" data-slide="prev"></a>
 	<a class="right carousel-control" href="#carousel" data-slide="next"></a>
 </section>
-<section id="featured">
-	<div class="posts row"><?php
-		$args = array(
-			'post_type' => 'post',
-			'posts_per_page' => 3,
-			'category' => get_post_meta($post->ID, 'daltons_post_category', true)
-		);
-		$recent = new WP_Query( $args );
-		while ( $recent->have_posts() ) : $recent->the_post(); ?>
-			<article class="col-md-4 col-sm-12"><?php
-		    	$id = get_the_ID();
-		    	echo get_the_post_thumbnail($id, 'thumbnail', array('class'=>'img-responsive center-block'));?>
-		    	<h2><?php the_title(); ?></h2><?php
-		    	the_excerpt(); ?>
-		    	<a class="more" href="<?php echo the_permalink(); ?>">READ MORE <i class="fa fa-angle-double-right"></i></a>
-		   	</article><?php
-		endwhile; ?>
-	</div>
-</section>
+<section id="featured" class="row row-eq-height"><?php
+	$args = array(
+		'post_type' => 'post',
+		'posts_per_page' => 3,
+		'category' => get_post_meta($post->ID, 'daltons_post_category', true)
+	);
+	$recent = new WP_Query( $args );
+	while ( $recent->have_posts() ) : $recent->the_post(); ?>
+		<article class="col-md-4 col-sm-12"><?php
+	    	$id = get_the_ID();
+	    	echo get_the_post_thumbnail($id, 'full', array('class'=>'img-responsive center-block'));?>
+	    	<h2><?php the_title(); ?></h2><?php
+	    	the_excerpt(); ?>
+	    	<a class="more" href="<?php echo the_permalink(); ?>">READ MORE <i class="fa fa-angle-double-right"></i></a>
+	   	</article><?php
+	endwhile; ?>
+</section><?php
+get_footer(); ?>

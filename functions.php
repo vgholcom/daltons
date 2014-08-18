@@ -15,7 +15,7 @@ include 'admin/inventory.php';
 function daltons_styles() {
 	wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '3.1.1' );
     wp_enqueue_style( 'icons', '//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.css' );
-    wp_enqueue_style( 'font', 'http://fonts.googleapis.com/css?family=Lato' );
+    wp_enqueue_style( 'font', 'http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' );
     wp_enqueue_style( 'daltons-css', get_stylesheet_uri(), array('bootstrap-css'), '1.0' );
 }
 add_action( 'wp_enqueue_scripts', 'daltons_styles' );
@@ -59,7 +59,7 @@ add_action('admin_menu', 'daltons_admin_menu');
 
 function daltons_theme_options() { 
     $option = get_option( 'daltons_theme_options' );?>
-    <div id="sdn-theme-options-wrap" class="wrap">
+    <div id="daltons-theme-options-wrap" class="wrap">
         <h2>Theme Options</h2>
         <p><i>From here you can modify different settings for this theme.</i></p>
         <div id="theme-options-frame" class="metabox-holder">
@@ -112,8 +112,8 @@ function daltons_theme_options() {
                 $("#save-changes-btn").val( 'Saving...' );
                 //send ajax request to update
                 var data = { 
-                    action: 'sdn_theme_options_ajax_action',
-                    sdn_theme_options: { 
+                    action: 'daltons_theme_options_ajax_action',
+                    daltons_theme_options: { 
                         branding: { src: $("#daltons-logo-src").attr('src'), id: $("#daltons-logo-id").val() },
                     }
                     

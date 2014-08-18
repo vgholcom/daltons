@@ -36,15 +36,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         </button>
-                    <a class="navbar-brand" href="#"><?php bloginfo( 'name' ); ?></a>
-                    
+                        <?php $option = get_option( 'daltons_theme_options' ); ?>
+                        <a class="navbar-brand" href="<?php bloginfo('url'); ?>"><img id="logo" src="<?php echo isset($option['branding'] ) ? $option['branding']['src'] : ''; ?>"></a>
                 </div>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                <div class="navbar-form navbar-right" role="search">
+                    <?php get_search_form(); ?>
+                </div>
                 <!--<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', '_s' ); ?></a>-->
                 <?php wp_nav_menu( array( 
                     'theme_location'    => 'primary',
