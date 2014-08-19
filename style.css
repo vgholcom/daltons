@@ -150,7 +150,8 @@ body {
 }
 
 /* home.php */
-.blog article {
+.blog article,
+.tax-inventorycategory article {
   background-color: rgb(94,133,80);
   border: 5px solid rgb(186,154,115);
   padding-top: 40px;
@@ -158,7 +159,8 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.blog article:first-of-type {
+.blog article:first-of-type,
+.tax-inventorycategory article:first-of-type {
   margin-top: 0;
 }
 
