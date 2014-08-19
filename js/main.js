@@ -1,3 +1,8 @@
+
+jQuery(document).ready(function($){
+	$("a[rel^='prettyPhoto']").prettyPhoto();
+});
+
 function initialize(){
 	var mapProp = {
 		center:new google.maps.LatLng(43.067037,-76.119383),
@@ -21,3 +26,6 @@ function initialize(){
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+	

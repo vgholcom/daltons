@@ -14,6 +14,7 @@ include 'admin/inventory.php';
  */
 function daltons_styles() {
 	wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '3.1.1' );
+    wp_enqueue_style( 'prettyPhoto-css', get_template_directory_uri() . '/css/prettyPhoto.css');
     wp_enqueue_style( 'icons', '//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.css' );
     wp_enqueue_style( 'font', 'http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' );
     wp_enqueue_style( 'daltons-css', get_stylesheet_uri(), array('bootstrap-css'), '1.0' );
@@ -26,6 +27,7 @@ add_action( 'wp_enqueue_scripts', 'daltons_styles' );
 function daltons_scripts() {
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '3.1.1' );    
+    wp_enqueue_script( 'prettyPhoto-js', get_template_directory_uri() . '/js/jquery.prettyPhoto.js', array('jquery') );    
     wp_enqueue_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false', array('jquery'), '3.1.1' );
     wp_enqueue_script( 'main-js', get_template_directory_uri() . '/js/main.js', array('jquery','bootstrap-js') );
 }

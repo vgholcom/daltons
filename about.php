@@ -8,7 +8,7 @@ get_header();
 if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 	<div id="about">
 		<div class="row-eq-height">
-			<div class="col-md-5" style="background-color:#000;">
+			<div class="col-md-5">
 				<h1><?php the_title(); ?></h1>
 				<?php the_content();?>
 			</div>
@@ -40,11 +40,10 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 				<div class="row">
 					<div class="col-md-7">
 						<div class="row">
-							<!--<div id="googleMap" style="width:500px;height:380px;"></div>-->
-							<div id="green" style="background-color:#fff; height: 400px;">white</div>
+							<div id="googleMap" style="width:500px;height:380px;"></div>
 						</div>
 					</div>
-					<div class="col-md-5" style="background-color:#666; height: 400px;">
+					<div class="col-md-5">
 						<div class="row"><?php
 							$days = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");?>
 							<h2>Hours</h2>

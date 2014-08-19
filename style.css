@@ -125,7 +125,7 @@ body {
 /* home-page.php */
 #featured {
   margin-top: 20px;
-  background-color: rgb(178,216,172);
+  background-color: rgb(94,133,80);
 }
 #featured article {
   border-top: 5px solid rgb(186,154,115);
@@ -142,7 +142,8 @@ body {
 
 /* about.php */
 #about {
-  background-color: rgb(178,216,172);
+  background-color: rgb(94,133,80);
+  color: rgb(249,249,237);
 }
 #about h1, h2 {
   text-align: center;
@@ -150,7 +151,7 @@ body {
 
 /* home.php */
 .blog article {
-  background-color: rgb(178,216,172);
+  background-color: rgb(94,133,80);
   border: 5px solid rgb(186,154,115);
   padding-top: 40px;
   padding-bottom: 40px;
@@ -176,4 +177,3 @@ footer {
   display: -ms-flexbox;
   display:         flex;
 }
-
