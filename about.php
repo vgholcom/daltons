@@ -8,7 +8,7 @@ get_header();
 if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 	<div id="about">
 		<div class="row-eq-height">
-			<div class="col-md-5">
+			<div class="content col-md-5">
 				<h1><?php the_title(); ?></h1>
 				<?php the_content();?>
 			</div>
@@ -38,13 +38,13 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 					</section>
 				</div>
 				<div class="row">
-					<div class="col-md-7">
+					<div class="map col-md-7">
 						<div class="row">
-							<div id="googleMap" style="width:500px;height:380px;"></div>
+							<!--<div id="googleMap" style="width:500px;height:380px;"></div>-->
 						</div>
 					</div>
 					<div class="col-md-5">
-						<div class="row"><?php
+						<div class="hours row"><?php
 							$days = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");?>
 							<h2>Hours</h2>
 						    <table>
@@ -67,7 +67,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 						        <tbody>
 						    </table>
 						</div>
-						<div class="row"><?php
+						<div class="contact row"><?php
 							$phone = get_post_meta($post->ID, 'daltons_phone', true);
 	            			$fax = get_post_meta($post->ID, 'daltons_fax', true);
 	            			$other = get_post_meta($post->ID, 'daltons_other', true); ?>

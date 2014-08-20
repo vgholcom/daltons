@@ -86,7 +86,7 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-/* HEADER */
+/* header */
 .navbar-default {
   background-color: rgb(237,237,213);
   border-bottom: 5px solid rgb(186,154,115);
@@ -155,6 +155,24 @@ body {
 }
 #about h1, h2 {
   text-align: center;
+}
+#about .content {
+  border:5px solid rgb(186,154,115); 
+  border-left: none;
+  padding: 35px;
+  font-size: 16px;
+}
+#about .map {
+  border-top: 5px solid rgb(186,154,115);  
+}
+#about .hours,
+#about .contact {
+  border:5px solid rgb(186,154,115);  
+  border-right: none; 
+  padding: 35px;
+}
+#about .contact {
+  border-top: none;
 }
 
 /* home.php */
