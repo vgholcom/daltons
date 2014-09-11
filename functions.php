@@ -253,7 +253,8 @@ function daltons_about_contact_meta() {
         <tbody><?php
             $phone = get_post_meta($post->ID, 'daltons_phone', true);
             $fax = get_post_meta($post->ID, 'daltons_fax', true);
-            $other = get_post_meta($post->ID, 'daltons_other', true); ?>
+            $other = get_post_meta($post->ID, 'daltons_other', true);
+            $address =  get_post_meta($post->ID, 'daltons_address', true); ?>
             <tr>
                 <td>
                     <strong>Phone</strong>
@@ -276,6 +277,14 @@ function daltons_about_contact_meta() {
                 </td>
                 <td>
                     <input id="daltons_other" name="daltons_other" style="width:100%;" value="<?php if(isset($other)){ echo $other; } ?>" placeholder=" " />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Address</strong>
+                </td>
+                <td>
+                    <input id="daltons_address" name="daltons_address" style="width:100%;" value="<?php if(isset($address)){ echo $address; } ?>" placeholder=" " />
                 </td>
             </tr>
         <tbody>
@@ -393,6 +402,9 @@ function daltons_metabox_save( $post_id ) {
     endif;
     if (isset($_POST['daltons_other'])) :
         update_post_meta( $post_id, 'daltons_other', $_POST['daltons_other'] );
+    endif;
+    if (isset($_POST['daltons_address'])) :
+        update_post_meta( $post_id, 'daltons_address', $_POST['daltons_address'] );
     endif;
     $oldg = get_post_meta($post_id, 'daltons_inventory_gallery', true);
     $newg = array();

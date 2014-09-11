@@ -13,7 +13,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 				<?php the_content();?>
 			</div>
 			<div class="col-md-7">
-				<div class="row">
+				<div class="row row-eq-height">
 					<section id="carousel" class="carousel slide" data-ride="carousel"><?php
 						$items = get_post_meta($post->ID, 'daltons_about_slides', true);
 						$num = count($items); $first = true; ?>
@@ -37,44 +37,37 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 						<a class="right carousel-control" href="#carousel" data-slide="next"></a>
 					</section>
 				</div>
-				<div class="row">
+				<div class="row row-eq-height">
 					<div class="map col-md-7">
-						<div class="row">
-							<!--<div id="googleMap" style="width:500px;height:380px;"></div>-->
+						<div class="map row">
+							<?php $address =  get_post_meta($post->ID, 'daltons_address', true); ?>
+							<div id="googleMap"></div>
+							<span><?php echo $address; ?></span>
 						</div>
 					</div>
 					<div class="col-md-5">
 						<div class="hours row"><?php
 							$days = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");?>
 							<h2>Hours</h2>
-						    <table>
-						        <tbody><?php
-						            foreach($days as $day) :
-						                $ohour = get_post_meta($post->ID, 'daltons_hours_o_'.$day, true);
-						                $chour = get_post_meta($post->ID, 'daltons_hours_c_'.$day, true); ?>
-						                <tr>
-						                    <td>
-						                        <strong><?php echo $day;?></strong>
-						                    </td>
-						                    <td>
-						                        <?php if(isset($ohour)){ echo $ohour; } ?>
-						                    </td>
-						                    <td>
-						                        <?php if(isset($chour)){ echo $chour; }  ?>
-						                    </td>
-						                </tr><?php
-						            endforeach;?>
-						        <tbody>
-						    </table>
+						    <div class="hours-table span"><?php
+					            foreach($days as $day) :
+					                $ohour = get_post_meta($post->ID, 'daltons_hours_o_'.$day, true);
+					                $chour = get_post_meta($post->ID, 'daltons_hours_c_'.$day, true); ?>
+					                <strong><?php echo $day;?></strong>
+					                <?php if(isset($ohour)){ echo $ohour.' -'; } ?>
+					                <?php if(isset($chour)){ echo ' '.$chour; }  ?><br>
+									<?php
+					            endforeach;?>
+						    </div>
 						</div>
 						<div class="contact row"><?php
 							$phone = get_post_meta($post->ID, 'daltons_phone', true);
 	            			$fax = get_post_meta($post->ID, 'daltons_fax', true);
 	            			$other = get_post_meta($post->ID, 'daltons_other', true); ?>
 	            			<h2>Contact</h2>
-	            			Phone: <?php echo $phone; ?>
-	            			Fax: <?php echo $fax; ?>
-	            			<?php echo $other; ?>
+	            			<span>Phone: <?php echo $phone; ?></span><br>
+	            			<span>Fax: <?php echo $fax; ?></span><br>
+	            			<span><?php echo $other; ?></span>
 						</div>
 					</div>
 				</div>

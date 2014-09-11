@@ -152,27 +152,40 @@ body {
 #about {
   background-color: rgb(94,133,80);
   color: rgb(249,249,237);
+  font-size: 16px;
 }
 #about h1, h2 {
   text-align: center;
 }
+#about span {
+  padding: 5px 0;
+}
 #about .content {
-  border:5px solid rgb(186,154,115); 
   border-left: none;
   padding: 35px;
-  font-size: 16px;
-}
-#about .map {
-  border-top: 5px solid rgb(186,154,115);  
 }
 #about .hours,
 #about .contact {
-  border:5px solid rgb(186,154,115);  
-  border-right: none; 
   padding: 35px;
+}
+#about .hours {
+  padding-bottom: 0px;
+}
+#about .hours strong {
+  padding-right: 10px;
 }
 #about .contact {
   border-top: none;
+}
+#about .carousel {
+  width: 100%;
+}
+#about .carousel-inner img {
+  max-height: 450px;
+  width: 100%;
+}
+#about .map {
+  background-color: red;
 }
 
 /* home.php */
@@ -189,7 +202,20 @@ body {
 .tax-inventorycategory article:first-of-type {
   margin-top: 0;
 }
-
+.blog {
+  color: rgb(249,249,237);
+}
+.blog .more-link {
+  color: rgb(249,249,237);
+  float: right;
+}
+/* single.php */
+.single {
+  text-align: none;
+}
+.single h2 {
+  text-align: left;
+}
 /* footer */
 footer {
   margin-top: 20px;
