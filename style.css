@@ -84,6 +84,7 @@ a img.aligncenter {
 body {
   background-color: rgb(249,249,237);
   font-family: 'Lato', sans-serif;
+  overflow-x: hidden;
 }
 
 /* header */
@@ -184,9 +185,6 @@ body {
   max-height: 450px;
   width: 100%;
 }
-#about .map {
-  background-color: red;
-}
 
 /* home.php */
 .blog article,
@@ -197,12 +195,15 @@ body {
   padding-bottom: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
+  border-left: none;
+  border-right: none;
 }
 .blog article:first-of-type,
 .tax-inventorycategory article:first-of-type {
   margin-top: 0;
 }
-.blog {
+.blog article,
+.tax-inventorycategory article {
   color: rgb(249,249,237);
 }
 .blog .more-link {
