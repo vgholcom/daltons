@@ -38,10 +38,12 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 					</section>
 				</div>
 				<div class="row row-eq-height">
-					<div class="map col-md-7">
+					<div class="col-md-7">
 						<div class="map row">
 							<?php $address =  get_post_meta($post->ID, 'daltons_address', true); ?>
-							<div id="googleMap"></div>
+							<div id="googleMap" style="width:500px;height:380px;"></div>
+						</div>
+						<div class="location row">
 							<span><?php echo $address; ?></span>
 						</div>
 					</div>

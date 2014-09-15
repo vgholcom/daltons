@@ -157,7 +157,7 @@ function daltons_metabox() {
     $type = get_post_type( $post );
     if (is_edit_page('new')){
         add_meta_box('daltons-about-hours-meta', 'Hours', 'daltons_about_hours_meta', 'page', 'side', 'low');
-        add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'side', 'low');
+        add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'normal', 'low');
         add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
         add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
         add_meta_box('daltons-page-post-category-meta', 'Post Category', 'daltons_page_post_category_meta', 'page', 'side', 'low');
@@ -167,7 +167,7 @@ function daltons_metabox() {
             $template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
             if ($template_file == 'about.php') {
                 add_meta_box('daltons-about-hours-meta', 'Hours', 'daltons_about_hours_meta', 'page', 'side', 'low');
-                add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'side', 'low');
+                add_meta_box('daltons-about-contact-meta', 'Contact', 'daltons_about_contact_meta', 'page', 'normal', 'low');
                 add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
             } elseif ($template_file == 'home-page.php') {
                 add_meta_box('daltons-about-slide-meta', 'Slides', 'daltons_about_slide_meta', 'page', 'normal', 'high');
@@ -249,7 +249,7 @@ function daltons_about_hours_meta() {
 
 function daltons_about_contact_meta() {
     global $post;?>
-    <table>
+    <table style="width:100%;">
         <tbody><?php
             $phone = get_post_meta($post->ID, 'daltons_phone', true);
             $fax = get_post_meta($post->ID, 'daltons_fax', true);

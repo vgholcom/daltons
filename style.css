@@ -185,6 +185,16 @@ body {
   max-height: 450px;
   width: 100%;
 }
+#about .map {
+  padding-top:35px;
+  padding-bottom: 15px;
+}
+#googleMap {
+  margin:0 auto;
+}
+#about .location {
+  padding-bottom: 35px;
+}
 
 /* home.php */
 .blog article,
