@@ -86,6 +86,10 @@ body {
   font-family: 'Lato', sans-serif;
   overflow-x: hidden;
 }
+a:hover, a:focus {
+  text-decoration: none;
+  color:rgb(249,249,237);
+}
 
 /* header */
 .navbar-default {
@@ -123,6 +127,9 @@ body {
   right: 5px;
   top:2px;
 }
+.navbar-default .navbar-nav .current-menu-item a {
+  color:#333;
+}
 /* home-page.php */
 #featured {
   margin-top: 20px;
@@ -154,6 +161,8 @@ body {
   background-color: rgb(94,133,80);
   color: rgb(249,249,237);
   font-size: 16px;
+  border-top: 5px solid rgb(186,154,115);
+  border-bottom: 5px solid rgb(186,154,115);
 }
 #about h1, h2 {
   text-align: center;
@@ -227,9 +236,17 @@ body {
 .single h2 {
   text-align: left;
 }
+.inventory {
+  text-align: center;
+  background-color: rgb(94,133,80);
+  border: 5px solid rgb(186,154,115);
+  color:rgb(249,249,237);
+  padding: 15px;
+}
 /* footer */
 footer {
   margin-top: 20px;
+  height: 50px;
 }
 
 /*

@@ -429,3 +429,37 @@ function daltons_metabox_save( $post_id ) {
     }
 }
 add_action( 'save_post', 'daltons_metabox_save' );
+
+//add extra fields to category edit form
+add_action ( 'inventorycategory_edit_form_fields', 'extra_category_fields');
+function extra_category_fields( $tag ) {    //check for existing featured ID
+    $t_id = $tag->term_id;
+    $cat_meta = get_option( "category_$t_id");
+    $img_src = wp_get_attachment_image_src( $cat_meta['img'] );?>
+    <tr class="form-field">
+        <th scope="row" valign="top"><label for="cat_Image_url"><?php _e('Category Image'); ?></label></th>
+        <td>
+            <input type="hidden" name="Cat_meta[img]" id="Cat_meta[img]" value="<?php echo $cat_meta['img'] ? $cat_meta['img'] : ''; ?>" />
+            <input type="button" name="Cat_meta[img]" id="Cat_meta[img]" class="upload-image-button button btn" value="Upload Image" />
+            <div class="preview-container"><img id="slide_image-preview" src="<?php if($cat_meta['img'] != '') echo $img_src[0]; ?>"/></div>
+        </td>
+    </tr>
+<?php
+}
+
+// save extra category extra fields
+add_action ( 'edited_inventorycategory', 'save_extra_category_fileds');
+function save_extra_category_fileds( $term_id ) {
+    if ( isset( $_POST['Cat_meta'] ) ) {
+        $t_id = $term_id;
+        $cat_meta = get_option( "category_$t_id");
+        $cat_keys = array_keys($_POST['Cat_meta']);
+            foreach ($cat_keys as $key){
+            if (isset($_POST['Cat_meta'][$key])){
+                $cat_meta[$key] = $_POST['Cat_meta'][$key];
+            }
+        }
+        //save the option array
+        update_option( "category_$t_id", $cat_meta );
+    }
+}
