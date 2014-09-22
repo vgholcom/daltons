@@ -5,7 +5,7 @@
  * @subpackage daltons
  */
 get_header(); ?>
-<article class="container"><?php 
+<div class="container"><?php 
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 		the_content(); 
 	endwhile; else: ?>
@@ -31,5 +31,5 @@ get_header(); ?>
 		if ($I % 3 != 0 ) {?>
 			</div><?php
 		}?>
-</article><?php 
+</div><?php 
 get_footer(); ?>

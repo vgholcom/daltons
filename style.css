@@ -208,7 +208,7 @@ a:hover, a:focus {
 /* home.php */
 .blog article,
 .tax-inventorycategory article,
-.page article {
+.page-template-events-php article {
   background-color: rgb(94,133,80);
   border: 5px solid rgb(186,154,115);
   padding-top: 40px;
@@ -219,12 +219,12 @@ a:hover, a:focus {
   border-right: none;
 }
 .blog article:first-of-type,
-.page article:first-of-type,
+.page-template-events-php article:first-of-type,
 .tax-inventorycategory article:first-of-type {
   margin-top: 0;
 }
 .blog article,
-.page article,
+.page-template-events-php article,
 .tax-inventorycategory article {
   color: rgb(249,249,237);
 }
