@@ -208,7 +208,8 @@ a:hover, a:focus {
 /* home.php */
 .blog article,
 .tax-inventorycategory article,
-.page-template-events-php article {
+.page-template-events-php article,
+.search article {
   background-color: rgb(94,133,80);
   border: 5px solid rgb(186,154,115);
   padding-top: 40px;
@@ -225,10 +226,12 @@ a:hover, a:focus {
 }
 .blog article,
 .page-template-events-php article,
-.tax-inventorycategory article {
+.tax-inventorycategory article,
+.search article {
   color: rgb(249,249,237);
 }
-.blog .more-link {
+.blog .more-link,
+.search .more-link {
   color: rgb(249,249,237);
   float: right;
 }
