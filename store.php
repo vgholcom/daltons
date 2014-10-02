@@ -24,7 +24,7 @@ get_header(); ?>
 				<img id="inventory_image" class="img-responsive" src="<?php if($cat_meta['img'] != '') echo $img_src[0]; ?>"/>
 				<h3><?php echo $category->name; ?></h3>
 			</a><?php
-			if ($I % 3 == 0 && $I != $count) {?>
+			if ($I % 4 == 0 && $I != $count) {?>
 				</div><?php 
 			}
 		endforeach; 
